@@ -1,4 +1,12 @@
 {
-  "literal_prop_5_1_density": true,
-  "wrong_O_alpha_envelope": true
+  "controls": {
+    "literal_main_text_density": {
+      "expected_to_match": false,
+      "rejected": true
+    },
+    "wrong_sqrt_scaling": {
+      "expected_to_stabilize": false,
+      "rejected": true
+    }
+  }
 }

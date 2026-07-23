@@ -1,4 +1,5 @@
 {
-  "literal_prop_5_1_density": true,
-  "wrong_O_alpha_envelope": true
+  "control": "O(alpha) W1 envelope for iid smooth strongly convex SGD",
+  "control_pass": false,
+  "expected_to_pass": false
 }

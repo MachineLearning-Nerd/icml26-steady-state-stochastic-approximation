@@ -1,4 +1,5 @@
 {
-  "literal_prop_5_1_density": true,
-  "wrong_O_alpha_envelope": true
+  "control": "O(alpha) projection-tail envelope",
+  "control_pass": false,
+  "expected_to_pass": false
 }

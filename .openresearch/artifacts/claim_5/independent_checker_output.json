@@ -1,26 +1,43 @@
 {
-  "alphas": [
-    0.08,
-    0.04,
-    0.02,
-    0.01,
-    0.005
-  ],
-  "loglog_slope": 1.010956836509108,
-  "method": "closed-form Gaussian stationary covariance; W1 bounded by exact W2",
-  "normalized_by_paper_rate": [
-    0.059345283051944926,
-    0.0323696320378421,
-    0.018675893126603428,
-    0.011171602202565979,
-    0.006851863053244062
-  ],
-  "passed": true,
-  "w2_upper_bounds": [
-    0.0423953171704444,
-    0.020838765205297826,
-    0.01033231832900713,
-    0.005144712939297575,
-    0.0025670341435061407
-  ]
+  "claim": 5,
+  "details": {
+    "tail": {
+      "coverage_pass": true,
+      "passed": true,
+      "rate_formula_pass": true,
+      "recomputed_calibration_constant": 0.07700853707180358,
+      "recomputed_max_holdout_normalized_upper": 0.02653616885017021
+    },
+    "w1": {
+      "markov:contractive": {
+        "passed": true,
+        "recomputed_calibration_constant": 2.594676344111927,
+        "recomputed_holdout_values": [
+          0.8794974033625892,
+          0.8057491080513257
+        ],
+        "recomputed_loglog_slope": 0.558038286322952
+      },
+      "markov:linear": {
+        "passed": true,
+        "recomputed_calibration_constant": 1.9687831468838115,
+        "recomputed_holdout_values": [
+          0.7476514047308056,
+          0.6657239035323791
+        ],
+        "recomputed_loglog_slope": 0.4958292068443084
+      },
+      "markov:sgd": {
+        "passed": true,
+        "recomputed_calibration_constant": 1.9892773723243784,
+        "recomputed_holdout_values": [
+          0.7265075049120482,
+          0.6520467346573715
+        ],
+        "recomputed_loglog_slope": 0.5053819974545185
+      }
+    }
+  },
+  "method": "independent CSV parser; recomputed Markov W1 and tail contracts",
+  "passed": true
 }

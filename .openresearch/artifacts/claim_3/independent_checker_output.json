@@ -1,26 +1,25 @@
 {
-  "alphas": [
-    0.08,
-    0.04,
-    0.02,
-    0.01,
-    0.005
-  ],
-  "loglog_slope": 1.010956836509108,
-  "method": "closed-form Gaussian stationary covariance; W1 bounded by exact W2",
-  "normalized_by_paper_rate": [
-    0.059345283051944926,
-    0.0323696320378421,
-    0.018675893126603428,
-    0.011171602202565979,
-    0.006851863053244062
-  ],
-  "passed": true,
-  "w2_upper_bounds": [
-    0.0423953171704444,
-    0.020838765205297826,
-    0.01033231832900713,
-    0.005144712939297575,
-    0.0025670341435061407
-  ]
+  "claim": 3,
+  "details": {
+    "iid:contractive": {
+      "passed": true,
+      "recomputed_calibration_constant": 0.55005628555049,
+      "recomputed_holdout_values": [
+        0.23669373746914327,
+        0.24572002402627902
+      ],
+      "recomputed_loglog_slope": 0.42112593146879745
+    },
+    "iid:linear": {
+      "passed": true,
+      "recomputed_calibration_constant": 0.5160951040496135,
+      "recomputed_holdout_values": [
+        0.1853889443521312,
+        0.20010526922481606
+      ],
+      "recomputed_loglog_slope": 0.4940436461006234
+    }
+  },
+  "method": "independent CSV parser; recomputed W1 slopes and held-out envelopes",
+  "passed": true
 }

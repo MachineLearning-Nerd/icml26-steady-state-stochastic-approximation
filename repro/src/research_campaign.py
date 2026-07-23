@@ -873,9 +873,15 @@ def main() -> None:
     independent = independent_linear_checker()
     result = verdicts(gaussian_diag, gibbs_diag, independent)
     runtime = time.perf_counter() - started
+    max_rss_native = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+    max_rss_bytes = (
+        int(max_rss_native)
+        if sys.platform == "darwin"
+        else int(max_rss_native) * 1024
+    )
     resource_info = {
         "wall_seconds": runtime,
-        "max_rss_kib": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,
+        "max_rss_bytes": max_rss_bytes,
         "git_sha": git_sha(),
         "fixed_command": "uv run python repro/src/verify_sgd.py",
         "python": sys.version.split()[0],

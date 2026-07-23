@@ -1,4 +1,6 @@
 {
-  "literal_prop_5_1_density": true,
-  "wrong_O_alpha_envelope": true
+  "control": "O(alpha) W1 envelope across all six iid/Markov families",
+  "detected_as_wrong": true,
+  "expected_to_pass": false,
+  "observed_families_passing": 0
 }

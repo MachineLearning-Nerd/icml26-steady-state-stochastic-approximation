@@ -1,4 +1,12 @@
 {
-  "max_rss_kib": 92766208,
-  "wall_seconds": 800.220814166998
+  "environment_lock": "uv.lock",
+  "fixed_command": "uv run python repro/src/verify_sgd.py",
+  "git_sha": "47c8401ea79f221fcd59457fe0082ee163abc2fb",
+  "logical_cpus": 8,
+  "machine": "arm64",
+  "max_rss_kib": 114147328,
+  "numpy": "2.5.1",
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "python": "3.12.11",
+  "wall_seconds": 1162.793169208977
 }

@@ -1,4 +1,8 @@
 {
-  "literal_prop_5_1_density": true,
-  "wrong_O_alpha_envelope": true
+  "control": "O(alpha) W1 envelope for iid linear and contractive SA",
+  "control_passes": {
+    "contractive": false,
+    "linear": false
+  },
+  "expected_to_pass": false
 }

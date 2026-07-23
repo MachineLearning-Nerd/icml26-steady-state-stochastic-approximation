@@ -6,7 +6,9 @@ Experiment branches vary this committed implementation, never the command.
 """
 
 from research_campaign import main
+from make_report_assets import main as make_report_assets
 
 
 if __name__ == "__main__":
     main()
+    make_report_assets()
