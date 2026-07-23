@@ -20,8 +20,10 @@ import math
 import os
 import platform
 import resource
+import shutil
 import subprocess
 import sys
+import tempfile
 import time
 from dataclasses import dataclass
 from pathlib import Path
@@ -317,6 +319,70 @@ def run_gaussian_campaign() -> tuple[list[dict[str, object]], list[dict[str, obj
     diagnostics["tail_contract_pass"] = bool(tail_pass)
     diagnostics["negative_controls_failed_as_intended"] = negative_control_failures
     diagnostics["negative_control_pass"] = negative_control_failures >= 4
+    for noise in ("iid", "markov"):
+        rows = [r for r in tail_rows if r["noise"] == noise]
+        wrong_coarse = [
+            float(r["gap_upper95"])
+            / (
+                float(r["alpha"])
+                * math.sqrt(math.log(1.0 / float(r["alpha"])))
+                / float(r["threshold"])
+            )
+            for r in rows
+            if float(r["alpha"]) >= 0.02
+        ]
+        wrong_fine = [
+            float(r["gap_upper95"])
+            / (
+                float(r["alpha"])
+                * math.sqrt(math.log(1.0 / float(r["alpha"])))
+                / float(r["threshold"])
+            )
+            for r in rows
+            if float(r["alpha"]) < 0.02
+        ]
+        wrong_calibration = 1.10 * max(wrong_coarse)
+        wrong_pass = max(wrong_fine) <= wrong_calibration
+        diagnostics[f"{noise}_tail_wrong_O_alpha"] = {
+            "calibration_constant": wrong_calibration,
+            "max_holdout_normalized_upper": max(wrong_fine),
+            "control_pass": wrong_pass,
+            "detected_as_wrong": not wrong_pass,
+        }
+    wrong_covariance_rows: list[tuple[float, float]] = []
+    direction_map = directions()
+    for row in [r for r in tail_rows if r["noise"] == "markov"]:
+        zeta = direction_map[str(row["direction"])]
+        iid_variance = float(
+            np.sum(
+                (zeta**2)
+                * target_variance(str(row["model"]), markov=False)
+            )
+        )
+        threshold = float(row["threshold"])
+        wrong_gaussian = float(
+            1.0 - ndtr(threshold / math.sqrt(iid_variance))
+        )
+        wrong_gap = abs(float(row["empirical_tail"]) - wrong_gaussian)
+        confidence_margin = float(row["gap_upper95"]) - float(row["gap"])
+        wrong_upper = wrong_gap + confidence_margin
+        wrong_covariance_rows.append(
+            (float(row["alpha"]), wrong_upper / float(row["theorem_rate"]))
+        )
+    wrong_cov_coarse = [
+        value for alpha, value in wrong_covariance_rows if alpha >= 0.02
+    ]
+    wrong_cov_fine = [
+        value for alpha, value in wrong_covariance_rows if alpha < 0.02
+    ]
+    wrong_cov_calibration = 1.10 * max(wrong_cov_coarse)
+    wrong_cov_pass = max(wrong_cov_fine) <= wrong_cov_calibration
+    diagnostics["markov_wrong_iid_covariance"] = {
+        "calibration_constant": wrong_cov_calibration,
+        "max_holdout_normalized_upper": max(wrong_cov_fine),
+        "control_pass": wrong_cov_pass,
+        "detected_as_wrong": not wrong_cov_pass,
+    }
     return metric_rows, tail_rows, diagnostics
 
 
@@ -362,6 +428,7 @@ def run_gibbs_campaign() -> tuple[list[dict[str, object]], dict[str, object]]:
     diagnostics: dict[str, object] = {"orders": {}}
     all_pass = True
     literal_rejected = True
+    wrong_scaling_rejected = True
     for h in (4, 6):
         for alpha in GIBBS_ALPHAS:
             per_seed: list[dict[str, float]] = []
@@ -408,6 +475,12 @@ def run_gibbs_campaign() -> tuple[list[dict[str, object]], dict[str, object]]:
         )
         scaled = np.array([float(r["scaled_sd"]) for r in h_rows])
         scaled_cv = float(np.std(scaled) / np.mean(scaled))
+        wrong_scaled = np.array([float(r["wrong_sqrt_scaled_sd"]) for r in h_rows])
+        wrong_scaled_ratio = float(np.max(wrong_scaled) / np.min(wrong_scaled))
+        this_wrong_scaling_rejected = wrong_scaled_ratio > 1.30
+        wrong_scaling_rejected = (
+            wrong_scaling_rejected and this_wrong_scaling_rejected
+        )
         literal_ratio = np.array(
             [float(r["w1_literal"]) / max(float(r["w1_intended"]), 1e-12) for r in h_rows]
         )
@@ -420,6 +493,8 @@ def run_gibbs_campaign() -> tuple[list[dict[str, object]], dict[str, object]]:
             "heldout_rate_pass": holdout_pass,
             "literal_vs_intended_w1_ratio_min_fine": float(np.min(literal_ratio[-2:])),
             "literal_density_rejected": this_literal_rejected,
+            "wrong_sqrt_scaling_ratio": wrong_scaled_ratio,
+            "wrong_sqrt_scaling_rejected": this_wrong_scaling_rejected,
         }
         all_pass = (
             all_pass
@@ -429,6 +504,7 @@ def run_gibbs_campaign() -> tuple[list[dict[str, object]], dict[str, object]]:
         )
     diagnostics["intended_conditional_rate_pass"] = bool(all_pass)
     diagnostics["literal_main_text_density_rejected"] = bool(literal_rejected)
+    diagnostics["wrong_sqrt_scaling_rejected"] = bool(wrong_scaling_rejected)
     diagnostics["source_consistency_status"] = (
         "BLOCKED: Proposition 5.1 is conditional on conjectures and its displayed "
         "density conflicts with Conjecture 5.2 and Appendix E."
@@ -512,6 +588,79 @@ def write_claim_artifacts(
         [row for row in tail_rows if row["noise"] == "markov"]
     ))
     write_text(ARTIFACT_ROOT / "claim_6" / "raw_metrics.csv", csv_text(gibbs_rows))
+    negative_controls = {
+        1: {
+            "control": "O(alpha) W1 envelope across all six iid/Markov families",
+            "expected_to_pass": False,
+            "observed_families_passing": 6
+            - int(diagnostics["gaussian"]["negative_controls_failed_as_intended"]),
+            "detected_as_wrong": bool(diagnostics["gaussian"]["negative_control_pass"]),
+        },
+        2: {
+            "control": "O(alpha) W1 envelope for iid smooth strongly convex SGD",
+            "expected_to_pass": False,
+            "control_pass": bool(
+                diagnostics["gaussian"]["models"]["iid:sgd"][
+                    "wrong_O_alpha_control_pass"
+                ]
+            ),
+        },
+        3: {
+            "control": "O(alpha) W1 envelope for iid linear and contractive SA",
+            "expected_to_pass": False,
+            "control_passes": {
+                model: bool(
+                    diagnostics["gaussian"]["models"][f"iid:{model}"][
+                        "wrong_O_alpha_control_pass"
+                    ]
+                )
+                for model in ("linear", "contractive")
+            },
+        },
+        4: {
+            "control": "O(alpha) projection-tail envelope",
+            "expected_to_pass": False,
+            "control_pass": bool(
+                diagnostics["gaussian"]["iid_tail_wrong_O_alpha"]["control_pass"]
+            ),
+        },
+        5: {
+            "controls": {
+                "O(alpha)_Markov_tail_envelope": {
+                    "expected_to_pass": False,
+                    "control_pass": bool(
+                        diagnostics["gaussian"]["markov_tail_wrong_O_alpha"][
+                            "control_pass"
+                        ]
+                    ),
+                },
+                "iid_covariance_substituted_for_long_run_covariance": {
+                    "expected_to_pass": False,
+                    "control_pass": bool(
+                        diagnostics["gaussian"]["markov_wrong_iid_covariance"][
+                            "control_pass"
+                        ]
+                    ),
+                },
+            }
+        },
+        6: {
+            "controls": {
+                "literal_main_text_density": {
+                    "expected_to_match": False,
+                    "rejected": bool(
+                        diagnostics["gibbs"]["literal_main_text_density_rejected"]
+                    ),
+                },
+                "wrong_sqrt_scaling": {
+                    "expected_to_stabilize": False,
+                    "rejected": bool(
+                        diagnostics["gibbs"]["wrong_sqrt_scaling_rejected"]
+                    ),
+                },
+            }
+        },
+    }
     for claim in range(1, 7):
         claim_dir = ARTIFACT_ROOT / f"claim_{claim}"
         write_text(
@@ -523,13 +672,28 @@ def write_claim_artifacts(
             json.dumps(resource_info, indent=2, sort_keys=True) + "\n",
         )
         write_text(
-            claim_dir / "independent_checker_output.json",
-            json.dumps(diagnostics["independent_checker"], indent=2, sort_keys=True) + "\n",
-        )
-        write_text(
             claim_dir / "negative_control_output.json",
-            json.dumps(diagnostics["negative_controls"], indent=2, sort_keys=True) + "\n",
+            json.dumps(negative_controls[claim], indent=2, sort_keys=True) + "\n",
         )
+        checker = subprocess.run(
+            [
+                sys.executable,
+                str(ROOT / "repro" / "src" / "independent_check.py"),
+                "--claim",
+                str(claim),
+                "--artifacts-root",
+                str(ARTIFACT_ROOT),
+            ],
+            cwd=ROOT,
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        if checker.returncode != 0:
+            print(checker.stdout.rstrip())
+            print(checker.stderr.rstrip())
+            raise SystemExit(f"independent checker failed for claim {claim}")
+        write_text(claim_dir / "independent_checker_output.json", checker.stdout)
         status = result[f"claim_{claim}"]["verdict"]
         write_text(
             claim_dir / "EVAL.md",
@@ -551,6 +715,73 @@ def write_claim_artifacts(
                 ]
             ),
         )
+
+
+def verifier_selftests() -> dict[str, object]:
+    """Prove each claim verifier rejects deliberately corrupted evidence."""
+    results: dict[str, object] = {}
+    for claim in range(1, 7):
+        with tempfile.TemporaryDirectory(prefix=f"claim-{claim}-selftest-") as temp:
+            temp_root = Path(temp)
+            target = temp_root / f"claim_{claim}"
+            shutil.copytree(ARTIFACT_ROOT / f"claim_{claim}", target)
+            verdict_path = target / "verdict.json"
+            original_verdict = verdict_path.read_text(encoding="utf-8")
+            verdict_path.write_text('{"verdict": "TOY"}\n', encoding="utf-8")
+            verdict_check = subprocess.run(
+                [
+                    sys.executable,
+                    str(ROOT / "repro" / "src" / "verify_claim_artifacts.py"),
+                    "--claim",
+                    str(claim),
+                    "--artifacts-root",
+                    str(temp_root),
+                ],
+                cwd=ROOT,
+                text=True,
+                capture_output=True,
+                check=False,
+            )
+            verdict_path.write_text(original_verdict, encoding="utf-8")
+            independent_path = target / "independent_checker_output.json"
+            independent = json.loads(independent_path.read_text(encoding="utf-8"))
+            independent["passed"] = False
+            independent_path.write_text(
+                json.dumps(independent, indent=2, sort_keys=True) + "\n",
+                encoding="utf-8",
+            )
+            independent_check = subprocess.run(
+                [
+                    sys.executable,
+                    str(ROOT / "repro" / "src" / "verify_claim_artifacts.py"),
+                    "--claim",
+                    str(claim),
+                    "--artifacts-root",
+                    str(temp_root),
+                ],
+                cwd=ROOT,
+                text=True,
+                capture_output=True,
+                check=False,
+            )
+            passed = verdict_check.returncode != 0 and independent_check.returncode != 0
+            results[f"claim_{claim}"] = {
+                "invalid_verdict_returncode": verdict_check.returncode,
+                "failed_independent_evidence_returncode": independent_check.returncode,
+                "passed": passed,
+            }
+            if not passed:
+                raise SystemExit(f"verifier self-test failed for claim {claim}")
+    result: dict[str, object] = {
+        "method": "temporary copied artifacts; mutate verdict and independent evidence separately",
+        "claims": results,
+        "passed": all(bool(record["passed"]) for record in results.values()),
+    }
+    write_text(
+        ARTIFACT_ROOT / "verifier_selftest.json",
+        json.dumps(result, indent=2, sort_keys=True) + "\n",
+    )
+    return result
 
 
 def verdicts(
@@ -588,11 +819,19 @@ def verdicts(
             "scope": "d=8 Hurwitz linear and globally contractive tanh SA",
         },
         "claim_4": {
-            "verdict": "VERIFIED" if gaussian["tail_contract_pass"] else "BLOCKED",
+            "verdict": "VERIFIED"
+            if gaussian["tail_contract_pass"]
+            and gaussian["iid_tail_wrong_O_alpha"]["detected_as_wrong"]
+            else "BLOCKED",
             "scope": "four directions, four thresholds, five stepsizes with held-out envelope checks",
         },
         "claim_5": {
-            "verdict": "VERIFIED" if markov_all else "BLOCKED",
+            "verdict": "VERIFIED"
+            if markov_all
+            and gaussian["markov_tail"]["holdout_pass"]
+            and gaussian["markov_tail_wrong_O_alpha"]["detected_as_wrong"]
+            and gaussian["markov_wrong_iid_covariance"]["detected_as_wrong"]
+            else "BLOCKED",
             "scope": "bounded product finite-state uniformly ergodic Markov chain; all three models",
         },
         "claim_6": {
@@ -637,6 +876,14 @@ def main() -> None:
     resource_info = {
         "wall_seconds": runtime,
         "max_rss_kib": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,
+        "git_sha": git_sha(),
+        "fixed_command": "uv run python repro/src/verify_sgd.py",
+        "python": sys.version.split()[0],
+        "numpy": np.__version__,
+        "platform": platform.platform(),
+        "machine": platform.machine(),
+        "logical_cpus": os.cpu_count(),
+        "environment_lock": "uv.lock",
     }
     combined_diagnostics = {
         "gaussian": gaussian_diag,
@@ -672,6 +919,7 @@ def main() -> None:
         if checker.returncode != 0:
             print(checker.stderr.rstrip())
             raise SystemExit(f"claim artifact checker failed for claim {claim}")
+    selftest = verifier_selftests()
 
     emit_artifact("raw/gaussian_w1.csv", csv_text(gaussian_rows))
     emit_artifact("raw/tail_gaps.csv", csv_text(tail_rows))
@@ -682,6 +930,10 @@ def main() -> None:
     )
     emit_artifact("runtime.json", json.dumps(resource_info, indent=2, sort_keys=True))
     emit_artifact("verdicts.json", json.dumps(result, indent=2, sort_keys=True))
+    emit_artifact(
+        "checks/verifier_selftest.json",
+        json.dumps(selftest, indent=2, sort_keys=True),
+    )
 
     print("EVAL_SUMMARY")
     for claim, record in result.items():

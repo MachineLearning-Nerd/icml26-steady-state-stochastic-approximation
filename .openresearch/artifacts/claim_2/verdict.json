@@ -1,0 +1,4 @@
+{
+  "scope": "d=8 smooth strongly convex nonquadratic SGD with bounded skew noise",
+  "verdict": "VERIFIED"
+}

@@ -1,0 +1,4 @@
+{
+  "scope": "bounded product finite-state uniformly ergodic Markov chain; all three models",
+  "verdict": "VERIFIED"
+}

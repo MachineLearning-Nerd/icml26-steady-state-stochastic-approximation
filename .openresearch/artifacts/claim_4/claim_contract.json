@@ -6,7 +6,7 @@
   "acceptance": [
     "A constant calibrated only on coarse stepsizes upper-bounds all fine-step upper confidence gaps normalized by alpha^(1/4)sqrt(log)/a.",
     "The target variance uses the direction-specific Lyapunov covariance.",
-    "Wrong target/rate controls are reported and fail where intended."
+    "A deliberately too-fast O(alpha) projection-tail envelope fails on held-out stepsizes."
   ],
   "verifier": "repro/src/verify_claim_artifacts.py --claim 4",
   "allowed_verdicts": ["VERIFIED", "FALSIFIED", "BLOCKED"]

@@ -1,5 +1,10 @@
 # Source audit — Claim 6
 
+Audited source: `https://ar5iv.labs.arxiv.org/html/2602.13960`, retrieved with
+the explicit User-Agent recorded in `.openresearch/protected/source_registry.json`
+at `2026-07-23T16:22:07Z`; source SHA-256
+`ba012ad708927c13fab0ef54d35a3b8fb693451cfae9000e430e1329ed48dcab`.
+
 Proposition 5.1 is at `S5.Thmproposition1` and is explicitly conditional on
 Assumptions 5.1–5.2 and **Conjectures** 5.1–5.2. Section 6 says completing those
 conjectures is future work.
