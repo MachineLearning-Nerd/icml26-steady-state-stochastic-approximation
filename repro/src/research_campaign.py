@@ -37,8 +37,10 @@ DIMENSION = 8
 ALPHAS = np.array([0.08, 0.04, 0.02, 0.01, 0.005], dtype=float)
 GIBBS_ALPHAS = np.array([0.08, 0.04, 0.02, 0.01], dtype=float)
 SEEDS = (1729, 2718, 3141, 5772)
-CHAINS_PER_SEED = 512
-BATCHES = 6
+GAUSSIAN_CHAINS_PER_SEED = 4096
+GAUSSIAN_BATCHES = 8
+GIBBS_CHAINS_PER_SEED = 512
+GIBBS_BATCHES = 6
 IID_REFRESH_PROB = 1.0
 MARKOV_RHO = 0.55
 SKEW_PROB = 1.0 / 3.0
@@ -108,7 +110,7 @@ def simulate_family_samples(
 ) -> dict[str, np.ndarray]:
     """Simulate independent stationary chains for all three model families."""
     rng = np.random.default_rng(seed)
-    shape = (CHAINS_PER_SEED, DIMENSION)
+    shape = (GAUSSIAN_CHAINS_PER_SEED, DIMENSION)
     state = rng.random(shape) < SKEW_PROB
     x_sgd = np.zeros(shape)
     x_linear = np.zeros(shape)
@@ -133,7 +135,7 @@ def simulate_family_samples(
         step()
 
     collected = {"sgd": [], "linear": [], "contractive": []}
-    for _ in range(BATCHES):
+    for _ in range(GAUSSIAN_BATCHES):
         for _ in range(gap):
             step()
         scale = math.sqrt(alpha)
@@ -258,7 +260,7 @@ def run_gaussian_campaign() -> tuple[list[dict[str, object]], list[dict[str, obj
                     "alpha": float(alpha),
                     "dimension": DIMENSION,
                     "independent_seeds": len(SEEDS),
-                    "samples_per_seed": CHAINS_PER_SEED * BATCHES,
+                    "samples_per_seed": GAUSSIAN_CHAINS_PER_SEED * GAUSSIAN_BATCHES,
                     "theorem_rate": float(math.sqrt(alpha) * math.log(1.0 / alpha)),
                 }
                 for key in ("coordinate_mean", "w1_lower", "w1_upper"):
@@ -332,7 +334,7 @@ def gibbs_quantiles(n: int, h: int, *, literal_paper: bool = False) -> np.ndarra
 
 def simulate_scaled_gibbs(alpha: float, h: int, seed: int) -> np.ndarray:
     rng = np.random.default_rng(seed)
-    y = np.zeros(CHAINS_PER_SEED)
+    y = np.zeros(GIBBS_CHAINS_PER_SEED)
     delta = alpha ** (2.0 - 2.0 / h)
     burn = int(math.ceil(9.0 / delta))
     gap = int(math.ceil(0.75 / delta))
@@ -348,7 +350,7 @@ def simulate_scaled_gibbs(alpha: float, h: int, seed: int) -> np.ndarray:
     for _ in range(burn):
         step()
     out: list[np.ndarray] = []
-    for _ in range(BATCHES):
+    for _ in range(GIBBS_BATCHES):
         for _ in range(gap):
             step()
         out.append(y.copy())
@@ -384,7 +386,7 @@ def run_gibbs_campaign() -> tuple[list[dict[str, object]], dict[str, object]]:
                 "h": h,
                 "alpha": float(alpha),
                 "independent_seeds": len(SEEDS),
-                "samples_per_seed": CHAINS_PER_SEED * BATCHES,
+                "samples_per_seed": GIBBS_CHAINS_PER_SEED * GIBBS_BATCHES,
                 "theorem_rate": float(alpha ** (1.0 / h)),
             }
             for key in per_seed[0]:
@@ -561,17 +563,27 @@ def verdicts(
     markov_all = all(bool(model_diag[f"markov:{m}"]["holdout_pass"]) for m in FAMILIES)
     return {
         "claim_1": {
-            "verdict": "VERIFIED" if iid_all and markov_all and independent["passed"] else "BLOCKED",
+            "verdict": "VERIFIED"
+            if iid_all
+            and markov_all
+            and gaussian["gaussian_contract_pass"]
+            and independent["passed"]
+            else "BLOCKED",
             "scope": "faithful d=8 assumption-satisfying instantiations of Theorems 3.1 and 4.1",
         },
         "claim_2": {
-            "verdict": "VERIFIED" if model_diag["iid:sgd"]["holdout_pass"] else "BLOCKED",
+            "verdict": "VERIFIED"
+            if model_diag["iid:sgd"]["holdout_pass"]
+            and 0.15 <= model_diag["iid:sgd"]["loglog_slope"] <= 1.10
+            else "BLOCKED",
             "scope": "d=8 smooth strongly convex nonquadratic SGD with bounded skew noise",
         },
         "claim_3": {
             "verdict": "VERIFIED"
             if model_diag["iid:linear"]["holdout_pass"]
             and model_diag["iid:contractive"]["holdout_pass"]
+            and 0.15 <= model_diag["iid:linear"]["loglog_slope"] <= 1.10
+            and 0.15 <= model_diag["iid:contractive"]["loglog_slope"] <= 1.10
             else "BLOCKED",
             "scope": "d=8 Hurwitz linear and globally contractive tanh SA",
         },
@@ -606,8 +618,10 @@ def main() -> None:
                 "alphas": ALPHAS.tolist(),
                 "gibbs_alphas": GIBBS_ALPHAS.tolist(),
                 "seeds": list(SEEDS),
-                "chains_per_seed": CHAINS_PER_SEED,
-                "batches": BATCHES,
+                "gaussian_chains_per_seed": GAUSSIAN_CHAINS_PER_SEED,
+                "gaussian_batches": GAUSSIAN_BATCHES,
+                "gibbs_chains_per_seed": GIBBS_CHAINS_PER_SEED,
+                "gibbs_batches": GIBBS_BATCHES,
                 "markov_rho": MARKOV_RHO,
                 "noise": "centered variance-one bounded skew two-point",
             },
