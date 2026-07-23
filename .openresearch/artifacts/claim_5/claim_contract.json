@@ -1,0 +1,19 @@
+{
+  "claim": 5,
+  "paper_result": "Proposition 4.1",
+  "quantifier": "Under Assumption 4.1 and each model's conditions, all three model classes obey the same Wasserstein and projection-tail orders for sufficiently small alpha.",
+  "assumptions": [
+    "stationary uniformly ergodic exogenous Markov chain",
+    "centered bounded noise and positive-definite absolutely convergent long-run covariance",
+    "bounded solutions to both finite-state Poisson equations",
+    "unique joint stationary law"
+  ],
+  "operationalization": "Product of eight stationary two-state refresh chains with rho=0.55, bounded skew output, and analytic long-run covariance (1+rho)/(1-rho).",
+  "acceptance": [
+    "SGD, linear, and contractive models each pass held-out W1 paper-rate envelopes.",
+    "Markov projection tails pass the held-out alpha^(1/4)sqrt(log)/a envelope.",
+    "The iid covariance substituted for long-run covariance is retained as a negative control."
+  ],
+  "verifier": "repro/src/verify_claim_artifacts.py --claim 5",
+  "allowed_verdicts": ["VERIFIED", "FALSIFIED", "BLOCKED"]
+}

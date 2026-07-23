@@ -1,0 +1,20 @@
+{
+  "claim": 1,
+  "paper_result": "Theorems 3.1 and 4.1",
+  "metric": "Euclidean multivariate Wasserstein-1",
+  "quantifier": "There exist alpha_1 > 0 and a finite uniform U such that, for every alpha in (0, alpha_1), d_W <= U sqrt(alpha) log(1/alpha).",
+  "assumptions": [
+    "d-dimensional globally Lipschitz C2 drift with bounded second derivatives",
+    "Hurwitz Jacobian and unique stationary law",
+    "uniform third stationary moment for iid noise or fourth moment for Markov noise",
+    "iid centered positive-definite covariance and finite third noise moment, or Assumption 4.1 finite-state Markov conditions"
+  ],
+  "operationalization": "d=8 separable assumption-satisfying SGD, linear, and contractive systems; coordinate W1 distances rigorously bracket the Euclidean product-law W1.",
+  "acceptance": [
+    "All iid and Markov model families satisfy a held-out sqrt(alpha) log(1/alpha) upper envelope.",
+    "The closed-form Gaussian linear-SA checker independently satisfies the same upper rate.",
+    "At least four wrong O(alpha) negative-control envelopes fail on held-out stepsizes."
+  ],
+  "verifier": "repro/src/verify_claim_artifacts.py --claim 1",
+  "allowed_verdicts": ["VERIFIED", "FALSIFIED", "BLOCKED"]
+}
