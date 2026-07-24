@@ -16,14 +16,20 @@
   `a75d96d2fd051c33e80f1bb92870e6afb6ee42f6`
 - Exact-interval run:
   `900dc3d7-2e2c-4bb4-922d-feb16b446db9`
+- Publication assembly Git SHA:
+  `8867787f7b7927eb1ba7a07ae03498ebb9937f6e`
+- Publication assembly regression:
+  `a3fe8f73-2a3e-4a55-8367-aebfd951005c`
 - Fixed command:
   `uv run python repro/src/verify_sgd.py`
-- Verifier wall time:
+- Exact-interval verifier wall time:
   340.377 seconds
-- Orchestrated runtime:
-  7m43s
-- Total formal experiment time through the winner:
-  55m02s
+- Publication assembly verifier wall time:
+  656.085 seconds
+- Publication assembly orchestrated runtime:
+  12m37s
+- Total formal experiment time through publication assembly:
+  67m39s
 - Compute:
   local 8-core arm64 CPU
 - Hugging Face CPU:
@@ -43,7 +49,7 @@
 | Durable evidence gate | `47c8401` | Add independent recomputation and corruption tests | All claim checkers pass | 20m44s |
 | Reader-facing evidence | `c8788df` | Add reproducible figure generation | Scientific gate and figures pass | 10m40s |
 | Exact tail intervals | `a75d96d` | Replace approximate tail intervals with exact Clopper-Pearson intervals | Scientific winner | 7m43s |
-| Publication assembly | pending final commit | Add report, notebook, additive Space overlay, and release manifests | Must pass unchanged final regression before approval | pending |
+| Publication assembly | `8867787` | Add report, notebook, additive Space overlay, and release manifests | Unchanged cumulative regression passes | 12m37s |
 
 ## Claim-by-claim result
 

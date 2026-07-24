@@ -45,6 +45,7 @@ an exact high-dimensional optimal-transport solve.
 | [High-precision W1](https://github.com/MachineLearning-Nerd/icml26-repro-m4TAzup6Yc-sgd-steady-state/tree/orx/high-precision-iid-w1-floor-removal) | Increase only the Gaussian stationary ensemble | `uv run python repro/src/verify_sgd.py` | Resolves all six W1 slopes and controls | Local CPU, 14m15s |
 | [Durable evidence gate](https://github.com/MachineLearning-Nerd/icml26-repro-m4TAzup6Yc-sgd-steady-state/tree/orx/durable-evidence-freeze-and-release-gate) | Add claim-specific independent checks and mutation tests | `uv run python repro/src/verify_sgd.py` | Six independent checks and 12 failure tests pass | Local CPU, 20m44s |
 | [Exact tail intervals](https://github.com/MachineLearning-Nerd/icml26-repro-m4TAzup6Yc-sgd-steady-state/tree/orx/final-additive-publication-candidate) | Replace approximate tail uncertainty with exact binomial intervals | `uv run python repro/src/verify_sgd.py` | Claims 1–5 VERIFIED; Claim 6 BLOCKED | Local CPU, 7m43s |
+| [Publication assembly](https://github.com/MachineLearning-Nerd/icml26-repro-m4TAzup6Yc-sgd-steady-state/tree/orx/publication-assembly-and-final-regression) | Add report, notebook, and additive text-only release candidate | `uv run python repro/src/verify_sgd.py` | Unchanged cumulative regression passes | Local CPU, 12m37s |
 
 ## Run locally
 
