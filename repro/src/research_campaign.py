@@ -30,6 +30,7 @@ from pathlib import Path
 
 import numpy as np
 from scipy.special import gammaincinv, ndtr, ndtri
+from scipy.stats import beta as beta_distribution
 from scipy.stats import t as student_t
 
 
@@ -177,14 +178,36 @@ def projection_tail_rows(
         variance = float(np.sum((zeta**2) * target_var))
         sd = math.sqrt(variance)
         for threshold in THRESHOLDS:
-            empirical = float(np.mean(projection > threshold))
+            exceedances = int(np.count_nonzero(projection > threshold))
+            n = len(projection)
+            empirical = exceedances / n
             gaussian = float(1.0 - ndtr(threshold / sd))
             gap = abs(empirical - gaussian)
-            n = len(projection)
-            # Conservative normal approximation for a Bernoulli difference:
-            # empirical tail is random; the Gaussian reference is fixed.
-            se = math.sqrt(max(empirical * (1.0 - empirical), 1.0 / n) / n)
-            upper95 = gap + 1.96 * se
+            # Exact equal-tailed 95% Clopper-Pearson interval for the empirical
+            # Bernoulli probability, transformed into an upper confidence bound
+            # for its absolute difference from the fixed Gaussian reference.
+            probability_low = (
+                0.0
+                if exceedances == 0
+                else float(
+                    beta_distribution.ppf(
+                        0.025, exceedances, n - exceedances + 1
+                    )
+                )
+            )
+            probability_high = (
+                1.0
+                if exceedances == n
+                else float(
+                    beta_distribution.ppf(
+                        0.975, exceedances + 1, n - exceedances
+                    )
+                )
+            )
+            upper95 = max(
+                abs(probability_low - gaussian),
+                abs(probability_high - gaussian),
+            )
             rate = alpha**0.25 * math.sqrt(math.log(1.0 / alpha)) / threshold
             rows.append(
                 {
@@ -195,7 +218,11 @@ def projection_tail_rows(
                     "seed": seed,
                     "direction": direction_name,
                     "threshold": float(threshold),
+                    "exceedances": exceedances,
+                    "sample_size": n,
                     "empirical_tail": empirical,
+                    "empirical_tail_cp95_low": probability_low,
+                    "empirical_tail_cp95_high": probability_high,
                     "gaussian_tail": gaussian,
                     "gap": gap,
                     "gap_upper95": upper95,

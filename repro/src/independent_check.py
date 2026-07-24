@@ -13,6 +13,8 @@ import math
 from pathlib import Path
 from typing import Any
 
+from scipy.stats import beta as beta_distribution
+
 
 def read_rows(path: Path) -> list[dict[str, str]]:
     with path.open(newline="", encoding="utf-8") as handle:
@@ -72,10 +74,71 @@ def check_tail(path: Path) -> tuple[bool, dict[str, Any]]:
     required_thresholds = {0.45, 0.70, 0.95, 1.20}
     required_alphas = {0.08, 0.04, 0.02, 0.01, 0.005}
     coverage = (
-        {row["direction"] for row in rows} == required_directions
+        len(rows) == 960
+        and {row["direction"] for row in rows} == required_directions
         and {float(row["threshold"]) for row in rows} == required_thresholds
         and {float(row["alpha"]) for row in rows} == required_alphas
     )
+    exact_intervals = True
+    for row in rows:
+        exceedances = int(row["exceedances"])
+        sample_size = int(row["sample_size"])
+        probability_low = (
+            0.0
+            if exceedances == 0
+            else float(
+                beta_distribution.ppf(
+                    0.025,
+                    exceedances,
+                    sample_size - exceedances + 1,
+                )
+            )
+        )
+        probability_high = (
+            1.0
+            if exceedances == sample_size
+            else float(
+                beta_distribution.ppf(
+                    0.975,
+                    exceedances + 1,
+                    sample_size - exceedances,
+                )
+            )
+        )
+        empirical = exceedances / sample_size
+        gaussian = float(row["gaussian_tail"])
+        expected_upper = max(
+            abs(probability_low - gaussian),
+            abs(probability_high - gaussian),
+        )
+        exact_intervals = exact_intervals and all(
+            (
+                math.isclose(
+                    float(row["empirical_tail"]),
+                    empirical,
+                    rel_tol=1e-12,
+                    abs_tol=1e-12,
+                ),
+                math.isclose(
+                    float(row["empirical_tail_cp95_low"]),
+                    probability_low,
+                    rel_tol=1e-12,
+                    abs_tol=1e-12,
+                ),
+                math.isclose(
+                    float(row["empirical_tail_cp95_high"]),
+                    probability_high,
+                    rel_tol=1e-12,
+                    abs_tol=1e-12,
+                ),
+                math.isclose(
+                    float(row["gap_upper95"]),
+                    expected_upper,
+                    rel_tol=1e-12,
+                    abs_tol=1e-12,
+                ),
+            )
+        )
     rate_matches = all(
         math.isclose(
             float(row["theorem_rate"]),
@@ -99,9 +162,10 @@ def check_tail(path: Path) -> tuple[bool, dict[str, Any]]:
     ]
     calibration = 1.5 * max(coarse)
     holdout = max(fine) <= calibration
-    result = coverage and rate_matches and holdout
+    result = coverage and exact_intervals and rate_matches and holdout
     return result, {
         "coverage_pass": coverage,
+        "exact_clopper_pearson_recomputation_pass": exact_intervals,
         "rate_formula_pass": rate_matches,
         "recomputed_calibration_constant": calibration,
         "recomputed_max_holdout_normalized_upper": max(fine),

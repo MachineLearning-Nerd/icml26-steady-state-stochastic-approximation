@@ -4,6 +4,7 @@
   "quantifier": "For every unit direction zeta and every a>0, the absolute tail gap is at most U' alpha^(1/4) log(1/alpha)^(1/2) / a for sufficiently small alpha.",
   "operationalization": "Four unit directions, four positive thresholds, five stepsizes, all three iid model families, and seed-wise binomial uncertainty.",
   "acceptance": [
+    "Exact two-sided 95% Clopper-Pearson intervals are independently recomputed from serialized exceedance counts.",
     "A constant calibrated only on coarse stepsizes upper-bounds all fine-step upper confidence gaps normalized by alpha^(1/4)sqrt(log)/a.",
     "The target variance uses the direction-specific Lyapunov covariance.",
     "A deliberately too-fast O(alpha) projection-tail envelope fails on held-out stepsizes."

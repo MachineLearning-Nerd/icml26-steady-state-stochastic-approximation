@@ -11,7 +11,7 @@
   "operationalization": "Product of eight stationary two-state refresh chains with rho=0.55, bounded skew output, and analytic long-run covariance (1+rho)/(1-rho).",
   "acceptance": [
     "SGD, linear, and contractive models each pass held-out W1 paper-rate envelopes.",
-    "Markov projection tails pass the held-out alpha^(1/4)sqrt(log)/a envelope.",
+    "Markov projection tails pass the held-out alpha^(1/4)sqrt(log)/a envelope using independently recomputed exact Clopper-Pearson intervals.",
     "The iid covariance substituted for long-run covariance is retained as a negative control."
   ],
   "verifier": "repro/src/verify_claim_artifacts.py --claim 5",
