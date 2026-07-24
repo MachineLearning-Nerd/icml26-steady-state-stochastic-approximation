@@ -1,0 +1,21 @@
+{
+  "claim": 6,
+  "details": {
+    "4": {
+      "literal_vs_intended_w1_ratio_min_fine": 7.498920053304173,
+      "passed": true,
+      "recomputed_scaled_sd_cv": 0.008403838295321594,
+      "recomputed_scaling_slope": 0.24933670126184232,
+      "target_scaling_slope": 0.25
+    },
+    "6": {
+      "literal_vs_intended_w1_ratio_min_fine": 18.047808929275796,
+      "passed": true,
+      "recomputed_scaled_sd_cv": 0.003852034292919411,
+      "recomputed_scaling_slope": 0.16856868582744453,
+      "target_scaling_slope": 0.16666666666666666
+    }
+  },
+  "method": "independent CSV parser; recomputed h=4/h=6 scaling and both Gibbs targets",
+  "passed": true
+}

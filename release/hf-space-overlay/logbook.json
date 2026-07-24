@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "title": "Repro - Steady-State Behavior of Constant-Stepsize Stochastic Approximation",
+  "emoji": "🎯",
+  "space_id": "DineshAI/m4TAzup6Yc",
+  "paper": null,
+  "tags": [
+    "icml2026-repro",
+    "paper-m4TAzup6Yc"
+  ],
+  "updated_at": "2026-07-24T00:27:52+00:00",
+  "root": {
+    "slug": "index",
+    "title": "Repro - Steady-State Behavior of Constant-Stepsize Stochastic Approximation",
+    "file": "pages/index.md",
+    "children": [
+      {
+        "slug": "overview",
+        "title": "Overview",
+        "file": "pages/overview/page.md",
+        "children": []
+      },
+      {
+        "slug": "claims",
+        "title": "Claims",
+        "file": "pages/claims/page.md",
+        "children": []
+      },
+      {
+        "slug": "evidence",
+        "title": "Evidence",
+        "file": "pages/evidence/page.md",
+        "children": []
+      },
+      {
+        "slug": "verification-run",
+        "title": "Verification run",
+        "file": "pages/verification-run/page.md",
+        "children": []
+      },
+      {
+        "slug": "conclusion",
+        "title": "Conclusion",
+        "file": "pages/conclusion/page.md",
+        "children": []
+      },
+      {
+        "slug": "rigorous-reproduction",
+        "title": "Rigorous 2026 reproduction",
+        "file": "pages/rigorous-reproduction/page.md",
+        "children": [
+          {
+            "slug": "rigorous-method",
+            "title": "Method and release gate",
+            "file": "pages/rigorous-reproduction/method.md",
+            "children": []
+          },
+          {
+            "slug": "rigorous-claim-1",
+            "title": "Claim 1 - Gaussian W1",
+            "file": "pages/rigorous-reproduction/claim-1.md",
+            "children": []
+          },
+          {
+            "slug": "rigorous-claim-2",
+            "title": "Claim 2 - SGD",
+            "file": "pages/rigorous-reproduction/claim-2.md",
+            "children": []
+          },
+          {
+            "slug": "rigorous-claim-3",
+            "title": "Claim 3 - linear and nonlinear SA",
+            "file": "pages/rigorous-reproduction/claim-3.md",
+            "children": []
+          },
+          {
+            "slug": "rigorous-claim-4",
+            "title": "Claim 4 - projection tails",
+            "file": "pages/rigorous-reproduction/claim-4.md",
+            "children": []
+          },
+          {
+            "slug": "rigorous-claim-5",
+            "title": "Claim 5 - Markov noise",
+            "file": "pages/rigorous-reproduction/claim-5.md",
+            "children": []
+          },
+          {
+            "slug": "rigorous-claim-6",
+            "title": "Claim 6 - flat minima",
+            "file": "pages/rigorous-reproduction/claim-6.md",
+            "children": []
+          },
+          {
+            "slug": "rigorous-release-evidence",
+            "title": "Release evidence",
+            "file": "pages/rigorous-reproduction/release-evidence.md",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  "agent_view_tokens": 1611,
+  "revision": "1784708307490100821"
+}

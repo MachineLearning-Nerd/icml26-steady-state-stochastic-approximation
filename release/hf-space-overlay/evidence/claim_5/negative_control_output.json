@@ -1,0 +1,12 @@
+{
+  "controls": {
+    "O(alpha)_Markov_tail_envelope": {
+      "control_pass": false,
+      "expected_to_pass": false
+    },
+    "iid_covariance_substituted_for_long_run_covariance": {
+      "control_pass": false,
+      "expected_to_pass": false
+    }
+  }
+}

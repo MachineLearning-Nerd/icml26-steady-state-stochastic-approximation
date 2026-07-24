@@ -1,0 +1,18 @@
+{
+  "claim": 3,
+  "paper_result": "Propositions 3.2 and 3.3",
+  "quantifier": "For every sufficiently small alpha, both model classes obey a Wasserstein upper bound U_j sqrt(alpha) log(1/alpha).",
+  "assumptions": [
+    "linear SA matrix is Hurwitz",
+    "nonlinear operator is a strict contraction in a weighted Euclidean norm with bounded second derivatives",
+    "iid noise satisfies Assumption 3.1"
+  ],
+  "operationalization": "d=8 diagonal Hurwitz linear SA and d=8 T_i(x)=gamma_i tanh(x_i), with max gamma_i<1.",
+  "acceptance": [
+    "Both linear and nonlinear families pass held-out W1 envelopes across five alpha values.",
+    "The nonlinear map's contraction and derivative bounds are checked analytically from committed parameters.",
+    "A closed-form Gaussian linear checker independently confirms the covariance direction and upper rate."
+  ],
+  "verifier": "repro/src/verify_claim_artifacts.py --claim 3",
+  "allowed_verdicts": ["VERIFIED", "FALSIFIED", "BLOCKED"]
+}

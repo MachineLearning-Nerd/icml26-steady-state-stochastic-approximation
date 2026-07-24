@@ -1,0 +1,36 @@
+{
+  "paper": {
+    "arxiv_id": "2602.13960v1",
+    "title": "Steady-State Behavior of Constant-Stepsize Stochastic Approximation: Gaussian Approximation and Tail Bounds",
+    "url": "https://ar5iv.labs.arxiv.org/html/2602.13960",
+    "retrieved_utc": "2026-07-23T16:22:07Z",
+    "user_agent": "OpenResearch-Reproduction/1.0 (paper-source-audit; contact via project repository)",
+    "sha256": "ba012ad708927c13fab0ef54d35a3b8fb693451cfae9000e430e1329ed48dcab",
+    "anchors": {
+      "assumption_3_1": "S3.Thmassumption1",
+      "assumption_3_2": "S3.Thmassumption2",
+      "theorem_3_1": "S3.Thmtheorem1",
+      "proposition_3_1": "S3.Thmproposition1",
+      "proposition_3_2": "S3.Thmproposition2",
+      "proposition_3_3": "S3.Thmproposition3",
+      "assumption_4_1": "S4.Thmassumption1",
+      "theorem_4_1": "S4.Thmtheorem1",
+      "proposition_4_1": "S4.Thmproposition1",
+      "assumption_5_1": "S5.Thmassumption1",
+      "assumption_5_2": "S5.Thmassumption2",
+      "conjecture_5_1": "S5.Thmconjecture1",
+      "conjecture_5_2": "S5.Thmconjecture2",
+      "proposition_5_1": "S5.Thmproposition1"
+    }
+  },
+  "live_verdict": {
+    "dataset": "ICML-2026-agent-repro/verdicts",
+    "dataset_revision": "047e821a412e22da0c6fa8a4b9b78a3ca9096dbf",
+    "filter": {
+      "space_id": "DineshAI/m4TAzup6Yc"
+    },
+    "space_revision": "847472e15337044d0adb3e636ebbcf7614f0cd34",
+    "judged_at": "2026-07-22T10:24:44+00:00",
+    "score": "6/12"
+  }
+}

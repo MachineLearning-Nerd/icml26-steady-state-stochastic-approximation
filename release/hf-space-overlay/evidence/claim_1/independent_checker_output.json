@@ -1,0 +1,61 @@
+{
+  "claim": 1,
+  "details": {
+    "iid:contractive": {
+      "passed": true,
+      "recomputed_calibration_constant": 0.55005628555049,
+      "recomputed_holdout_values": [
+        0.23669373746914327,
+        0.24572002402627902
+      ],
+      "recomputed_loglog_slope": 0.42112593146879745
+    },
+    "iid:linear": {
+      "passed": true,
+      "recomputed_calibration_constant": 0.5160951040496135,
+      "recomputed_holdout_values": [
+        0.1853889443521312,
+        0.20010526922481606
+      ],
+      "recomputed_loglog_slope": 0.4940436461006234
+    },
+    "iid:sgd": {
+      "passed": true,
+      "recomputed_calibration_constant": 0.5487267133590934,
+      "recomputed_holdout_values": [
+        0.17678661685662916,
+        0.18527947797613317
+      ],
+      "recomputed_loglog_slope": 0.5390136356214614
+    },
+    "markov:contractive": {
+      "passed": true,
+      "recomputed_calibration_constant": 2.594676344111927,
+      "recomputed_holdout_values": [
+        0.8794974033625892,
+        0.8057491080513257
+      ],
+      "recomputed_loglog_slope": 0.558038286322952
+    },
+    "markov:linear": {
+      "passed": true,
+      "recomputed_calibration_constant": 1.9687831468838115,
+      "recomputed_holdout_values": [
+        0.7476514047308056,
+        0.6657239035323791
+      ],
+      "recomputed_loglog_slope": 0.4958292068443084
+    },
+    "markov:sgd": {
+      "passed": true,
+      "recomputed_calibration_constant": 1.9892773723243784,
+      "recomputed_holdout_values": [
+        0.7265075049120482,
+        0.6520467346573715
+      ],
+      "recomputed_loglog_slope": 0.5053819974545185
+    }
+  },
+  "method": "independent CSV parser; recomputed W1 slopes and held-out envelopes",
+  "passed": true
+}

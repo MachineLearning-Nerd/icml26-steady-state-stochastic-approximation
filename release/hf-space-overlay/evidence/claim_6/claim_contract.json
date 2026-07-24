@@ -1,0 +1,15 @@
+{
+  "claim": 6,
+  "paper_result": "Proposition 5.1",
+  "strict_statement": "Conditional on Assumptions 5.1-5.2 and Conjectures 5.1-5.2, d_W((X^(alpha)-x*)/alpha^(1/h),Y) <= U_5 alpha^(1/h).",
+  "quantifier": "One dimension, even h, and all sufficiently small alpha.",
+  "operationalization": "h=4 and h=6 polynomial objectives, bounded centered variance-one skew noise, four stepsizes, correct-scaling stability, Gibbs W1, and held-out alpha^(1/h) envelopes.",
+  "acceptance": [
+    "Observed unscaled standard-deviation exponent agrees with 1/h.",
+    "Correctly scaled laws stabilize and satisfy a held-out intended Gibbs-rate envelope.",
+    "The literal main-text Gibbs density and the Appendix-E intended density are tested separately.",
+    "No VERIFIED verdict is allowed while the conjectural premises and source formula conflicts remain unresolved."
+  ],
+  "verifier": "repro/src/verify_claim_artifacts.py --claim 6",
+  "allowed_verdicts": ["VERIFIED", "FALSIFIED", "BLOCKED"]
+}

@@ -1,0 +1,5 @@
+{
+  "control": "O(alpha) W1 envelope for iid smooth strongly convex SGD",
+  "control_pass": false,
+  "expected_to_pass": false
+}

@@ -1,0 +1,18 @@
+{
+  "claim": 2,
+  "paper_result": "Proposition 3.1, equation (3.6)",
+  "quantifier": "For every sufficiently small alpha, d_W(Y^(alpha), N(0,Sigma_Y)) <= U_1 sqrt(alpha) log(1/alpha).",
+  "assumptions": [
+    "d-dimensional thrice differentiable L-smooth sigma-strongly convex objective",
+    "globally bounded third derivatives",
+    "iid centered positive-definite noise covariance with finite third moment"
+  ],
+  "operationalization": "d=8 separable nonquadratic objective f_i(x)=q_i x^2/2+s_i(1-cos x), with q_i>s_i>0, and bounded skew noise.",
+  "acceptance": [
+    "Held-out W1 upper bracket lies inside the calibrated paper-rate envelope.",
+    "Log-log diagnostic slope is neither constant-error nor divergent.",
+    "Wrong O(alpha) envelope fails as intended."
+  ],
+  "verifier": "repro/src/verify_claim_artifacts.py --claim 2",
+  "allowed_verdicts": ["VERIFIED", "FALSIFIED", "BLOCKED"]
+}

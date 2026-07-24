@@ -1,0 +1,8 @@
+{
+  "control": "O(alpha) W1 envelope for iid linear and contractive SA",
+  "control_passes": {
+    "contractive": false,
+    "linear": false
+  },
+  "expected_to_pass": false
+}

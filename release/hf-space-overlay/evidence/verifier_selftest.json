@@ -1,0 +1,36 @@
+{
+  "claims": {
+    "claim_1": {
+      "failed_independent_evidence_returncode": 1,
+      "invalid_verdict_returncode": 1,
+      "passed": true
+    },
+    "claim_2": {
+      "failed_independent_evidence_returncode": 1,
+      "invalid_verdict_returncode": 1,
+      "passed": true
+    },
+    "claim_3": {
+      "failed_independent_evidence_returncode": 1,
+      "invalid_verdict_returncode": 1,
+      "passed": true
+    },
+    "claim_4": {
+      "failed_independent_evidence_returncode": 1,
+      "invalid_verdict_returncode": 1,
+      "passed": true
+    },
+    "claim_5": {
+      "failed_independent_evidence_returncode": 1,
+      "invalid_verdict_returncode": 1,
+      "passed": true
+    },
+    "claim_6": {
+      "failed_independent_evidence_returncode": 1,
+      "invalid_verdict_returncode": 1,
+      "passed": true
+    }
+  },
+  "method": "temporary copied artifacts; mutate verdict and independent evidence separately",
+  "passed": true
+}

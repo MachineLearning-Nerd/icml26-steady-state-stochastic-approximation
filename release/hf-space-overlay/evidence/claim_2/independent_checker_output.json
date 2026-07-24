@@ -1,0 +1,16 @@
+{
+  "claim": 2,
+  "details": {
+    "iid:sgd": {
+      "passed": true,
+      "recomputed_calibration_constant": 0.5487267133590934,
+      "recomputed_holdout_values": [
+        0.17678661685662916,
+        0.18527947797613317
+      ],
+      "recomputed_loglog_slope": 0.5390136356214614
+    }
+  },
+  "method": "independent CSV parser; recomputed W1 slopes and held-out envelopes",
+  "passed": true
+}

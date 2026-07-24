@@ -1,0 +1,25 @@
+{
+  "claim": 3,
+  "details": {
+    "iid:contractive": {
+      "passed": true,
+      "recomputed_calibration_constant": 0.55005628555049,
+      "recomputed_holdout_values": [
+        0.23669373746914327,
+        0.24572002402627902
+      ],
+      "recomputed_loglog_slope": 0.42112593146879745
+    },
+    "iid:linear": {
+      "passed": true,
+      "recomputed_calibration_constant": 0.5160951040496135,
+      "recomputed_holdout_values": [
+        0.1853889443521312,
+        0.20010526922481606
+      ],
+      "recomputed_loglog_slope": 0.4940436461006234
+    }
+  },
+  "method": "independent CSV parser; recomputed W1 slopes and held-out envelopes",
+  "passed": true
+}
