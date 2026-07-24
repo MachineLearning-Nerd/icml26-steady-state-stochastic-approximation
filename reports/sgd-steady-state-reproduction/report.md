@@ -211,8 +211,10 @@ direct compute cost was $0.
 - **Paper source:** explicit User-Agent retrieval on 2026-07-23, SHA-256
   `ba012ad708927c13fab0ef54d35a3b8fb693451cfae9000e430e1329ed48dcab`
 - **Judged Space snapshot:** `DineshAI/m4TAzup6Yc@847472e15337044d0adb3e636ebbcf7614f0cd34`
+- **Published evidence revision:** `DineshAI/m4TAzup6Yc@887693a544629b31b7c6dc141fa321a9fcdb5948`;
+  status `awaiting_judge`
 - **Live verdict selector:** `space_id == "DineshAI/m4TAzup6Yc"`; judged score
-  remains 6/12 until a future live judge evaluates a published revision
+  remains 6/12 until the live judge evaluates the published revision
 
 ## Limitations and assessment
 

@@ -2,6 +2,10 @@
 
 [![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/MachineLearning-Nerd/icml26-repro-m4TAzup6Yc-sgd-steady-state/blob/master/notebooks/sgd_steady_state_reproduction.py)
 
+**Published evidence:** existing Space `DineshAI/m4TAzup6Yc`, revision
+`887693a544629b31b7c6dc141fa321a9fcdb5948`; status **awaiting judge**. The
+live judged score remains **6/12**, and no score increase is claimed.
+
 This repository tests the Gaussian-approximation, projection-tail, Markov-noise,
 and flat-minimum claims in
 [arXiv:2602.13960](https://arxiv.org/abs/2602.13960). The previous judged
@@ -39,7 +43,7 @@ an exact high-dimensional optimal-transport solve.
 
 | Branch/experiment | Purpose or change | Exact run command | Assessment/outcome | Compute |
 | --- | --- | --- | --- | --- |
-| `master` | Public landing page and approved publication surface | Not run as an experiment (publication surface) | Presentation only | None |
+| `master` | Public landing page and approved publication surface | Not run as an experiment (publication surface) | Published mirror; awaiting judge | None |
 | [Judged 1D baseline](https://github.com/MachineLearning-Nerd/icml26-repro-m4TAzup6Yc-sgd-steady-state/tree/orx/baseline-judged-1d-toy-reproduction) | Freeze the prior 1D checks | `uv run python repro/src/verify_sgd.py` | Reproduces the toy baseline | Local CPU, 20s |
 | [Faithful d=8 contracts](https://github.com/MachineLearning-Nerd/icml26-repro-m4TAzup6Yc-sgd-steady-state/tree/orx/faithful-d-8-separable-w1-contracts) | Add assumption-satisfying models, rate contracts, and controls | `uv run python repro/src/verify_sgd.py` | Exposed an i.i.d. W1 sampling floor | Local CPU, 1m20s |
 | [High-precision W1](https://github.com/MachineLearning-Nerd/icml26-repro-m4TAzup6Yc-sgd-steady-state/tree/orx/high-precision-iid-w1-floor-removal) | Increase only the Gaussian stationary ensemble | `uv run python repro/src/verify_sgd.py` | Resolves all six W1 slopes and controls | Local CPU, 14m15s |

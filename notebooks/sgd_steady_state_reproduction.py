@@ -223,8 +223,10 @@ def _(mo):
 
     It regenerates raw CSVs, invokes a simulator-independent checker,
     exercises negative controls, and verifies that corrupted verdicts exit
-    nonzero. The public judged score remains **6/12** until the live judge
-    evaluates a future approved revision.
+    nonzero. The evidence is published at HF revision
+    `887693a544629b31b7c6dc141fa321a9fcdb5948` and is **awaiting judge**.
+    The public judged score remains **6/12** until the live judge evaluates
+    that revision.
     """)
     return
 

@@ -1,0 +1,17 @@
+{
+  "space_id": "DineshAI/m4TAzup6Yc",
+  "previous_judged_revision": "847472e15337044d0adb3e636ebbcf7614f0cd34",
+  "published_revision": "887693a544629b31b7c6dc141fa321a9fcdb5948",
+  "published_utc": "2026-07-24T14:41:47Z",
+  "publication_status": "awaiting_judge",
+  "live_judged_score": "6/12",
+  "score_change_claimed": false,
+  "upload_path_count": 76,
+  "remote_path_count": 92,
+  "protected_old_paths_present": 17,
+  "protected_old_non_logbook_paths_unchanged": 16,
+  "remote_upload_hashes_verified": 76,
+  "upload_allowlist_sha256": "c28ca3971e4c9d7f1d7ff07f010a39eddc3ced358737197dacf30d17f9840283",
+  "upload_manifest_sha256": "4307d18a5e28e90ac4499c6958ee87bf793acc2b2ee19e77404968507f9959c6",
+  "old_new_subset_report_sha256": "c21e88123f0e23224f4b001021b17486f7c5e8a30f20349615661547d3c1ede6"
+}

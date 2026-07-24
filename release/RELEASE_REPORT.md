@@ -1,12 +1,14 @@
 # Publication release report
 
-**Status:** candidate prepared locally; **not published**.
+**Status:** published to the existing Space; **awaiting judge**.
 
 **Previous live judged score:** 6/12.
 
 **Judged Space and judge head:** `847472e15337044d0adb3e636ebbcf7614f0cd34`.
 
 **Target Space:** `DineshAI/m4TAzup6Yc` (the existing Space only).
+
+**Published HF revision:** `887693a544629b31b7c6dc141fa321a9fcdb5948`.
 
 ## Winning evidence
 
@@ -153,7 +155,8 @@ git rev-parse HEAD
 git ls-remote origin
 ```
 
-No Hugging Face upload command has been executed.
+The approved 76-path text transaction was committed through the Hugging Face
+commit API with the previous judged revision as its required parent.
 
 ## Reader-facing artifacts
 
@@ -187,6 +190,13 @@ The verifier passes with:
 - 15/15 navigation targets present;
 - 76/76 overlay paths valid UTF-8 with text-only suffixes;
 - no configured secret-like pattern detected.
+
+The published revision was then redownloaded and independently checked:
+
+- 92/92 remote paths accounted for;
+- 17/17 protected old paths present;
+- 16/16 old non-navigation paths byte-identical;
+- 76/76 approved uploaded paths match the SHA-256 manifest.
 
 ## Exact Hugging Face upload allowlist
 
@@ -275,18 +285,12 @@ The exact SHA-256 of each upload path is in
 `release/hf_upload_manifest.sha256`. Existing binary assets are neither
 uploaded nor deleted.
 
-## Release action awaiting approval
+## Publication record
 
-After the final cumulative regression passes, the requested approval will be
-strictly for:
-
-1. uploading the allowlisted text paths to the existing
-   `DineshAI/m4TAzup6Yc` Space;
-2. verifying and reporting the resulting exact HF revision;
-3. marking the paper awaiting judge;
-4. mirroring the exact publication text, report, notebook, and README to
-   GitHub `master`;
-5. confirming the remote Git SHA with `git ls-remote`.
+The user approved the exact action described above. The existing Space was
+updated at revision `887693a544629b31b7c6dc141fa321a9fcdb5948`, the remote
+tree passed the hash and subset checks, and the release is marked
+`awaiting_judge`. The exact receipt is in `release/published_revision.json`.
 
 Publication is not evidence of a score change. The score remains 6/12 unless
 and until the live judge publishes a new verdict.
