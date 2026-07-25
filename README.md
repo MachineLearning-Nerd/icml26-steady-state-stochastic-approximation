@@ -2,14 +2,18 @@
 
 [![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/MachineLearning-Nerd/icml26-repro-m4TAzup6Yc-sgd-steady-state/blob/master/notebooks/sgd_steady_state_reproduction.py)
 
-**Published evidence:** existing Space `DineshAI/m4TAzup6Yc`, revision
-`887693a544629b31b7c6dc141fa321a9fcdb5948`; status **awaiting judge**. The
-live judged score remains **6/12**, and no score increase is claimed.
+**Current judged evidence:** existing Space `DineshAI/m4TAzup6Yc`, revision
+`887693a544629b31b7c6dc141fa321a9fcdb5948`, received **5/12**. The judge's
+agent reader rendered the additive rigorous subtree as `No cells`, so it saw
+only the preserved 1D baseline implementation. A new unpublished candidate
+adds real Trackio cells containing the d=8 source, raw tables, independent
+checker output, and controls. No score increase is claimed.
 
 This repository tests the Gaussian-approximation, projection-tail, Markov-noise,
 and flat-minimum claims in
-[arXiv:2602.13960](https://arxiv.org/abs/2602.13960). The previous judged
-logbook earned **6/12** from 1D toy checks. The new cumulative suite uses three
+[arXiv:2602.13960](https://arxiv.org/abs/2602.13960). The original judged
+logbook earned **6/12** from 1D toy checks; the next revision received **5/12**
+because its new evidence was not serialized into the agent view. The cumulative suite uses three
 assumption-satisfying d=8 model classes, five stepsizes, four deterministic
 seeds, held-out rate envelopes, exact Clopper–Pearson tail intervals,
 independent CSV recomputation, and controls designed to fail.
@@ -18,7 +22,7 @@ Claims 1–5 are **VERIFIED within their explicit finite experimental contracts*
 Claim 6 is **BLOCKED** after four routes because the printed proposition is
 conditional on unresolved conjectures and is inconsistent with its own
 Appendix-E target. These verdicts do not prove universal theorems, and the live
-score remains **6/12** until a judge evaluates a future approved Space revision.
+score remains **5/12** until a judge evaluates a future approved Space revision.
 
 The paper predicts a
 \(\sqrt{\alpha}\log(1/\alpha)\) Gaussian Wasserstein upper rate. Observed fitted
@@ -43,7 +47,7 @@ an exact high-dimensional optimal-transport solve.
 
 | Branch/experiment | Purpose or change | Exact run command | Assessment/outcome | Compute |
 | --- | --- | --- | --- | --- |
-| `master` | Public landing page and approved publication surface | Not run as an experiment (publication surface) | Published mirror; awaiting judge | None |
+| `master` | Public landing page and publication surface | Not run as an experiment (publication surface) | Published revision judged 5/12; additive remediation in progress | None |
 | [Judged 1D baseline](https://github.com/MachineLearning-Nerd/icml26-repro-m4TAzup6Yc-sgd-steady-state/tree/orx/baseline-judged-1d-toy-reproduction) | Freeze the prior 1D checks | `uv run python repro/src/verify_sgd.py` | Reproduces the toy baseline | Local CPU, 20s |
 | [Faithful d=8 contracts](https://github.com/MachineLearning-Nerd/icml26-repro-m4TAzup6Yc-sgd-steady-state/tree/orx/faithful-d-8-separable-w1-contracts) | Add assumption-satisfying models, rate contracts, and controls | `uv run python repro/src/verify_sgd.py` | Exposed an i.i.d. W1 sampling floor | Local CPU, 1m20s |
 | [High-precision W1](https://github.com/MachineLearning-Nerd/icml26-repro-m4TAzup6Yc-sgd-steady-state/tree/orx/high-precision-iid-w1-floor-removal) | Increase only the Gaussian stationary ensemble | `uv run python repro/src/verify_sgd.py` | Resolves all six W1 slopes and controls | Local CPU, 14m15s |

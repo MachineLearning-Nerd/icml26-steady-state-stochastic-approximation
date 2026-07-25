@@ -1,20 +1,20 @@
 {
-  "expected_unchanged_old_paths_except_logbook": 16,
+  "expected_unchanged_old_paths_except_logbook": 91,
   "failures": [],
-  "judged_revision": "847472e15337044d0adb3e636ebbcf7614f0cd34",
+  "judged_revision": "887693a544629b31b7c6dc141fa321a9fcdb5948",
   "missing_navigation_targets": [],
   "missing_old_paths": [],
-  "navigation_target_count": 15,
-  "new_additive_path_count": 75,
+  "navigation_target_count": 25,
+  "new_additive_path_count": 16,
   "old_pages_and_evidence_unchanged": true,
   "only_existing_path_replaced": [
     "logbook.json"
   ],
-  "overlay_text_path_count": 76,
-  "protected_old_path_count": 17,
-  "protected_old_paths_present": 17,
+  "overlay_text_path_count": 92,
+  "protected_old_path_count": 92,
+  "protected_old_paths_present": 92,
   "space_id": "DineshAI/m4TAzup6Yc",
   "status": "PASS",
-  "unchanged_old_paths_except_logbook": 16,
-  "virtual_candidate_path_count": 92
+  "unchanged_old_paths_except_logbook": 91,
+  "virtual_candidate_path_count": 108
 }

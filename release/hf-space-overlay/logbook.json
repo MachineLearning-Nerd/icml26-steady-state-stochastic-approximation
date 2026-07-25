@@ -8,7 +8,7 @@
     "icml2026-repro",
     "paper-m4TAzup6Yc"
   ],
-  "updated_at": "2026-07-24T00:27:52+00:00",
+  "updated_at": "2026-07-25T06:00:00+00:00",
   "root": {
     "slug": "index",
     "title": "Repro - Steady-State Behavior of Constant-Stepsize Stochastic Approximation",
@@ -98,9 +98,70 @@
             "children": []
           }
         ]
+      },
+      {
+        "slug": "judge-visible-evidence",
+        "title": "Judge-visible d=8 evidence",
+        "file": "pages/judge-visible-evidence/page.md",
+        "children": [
+          {
+            "slug": "judge-visible-formal-run",
+            "title": "Formal verifier source and output",
+            "file": "pages/judge-visible-evidence/formal-run.md",
+            "children": []
+          },
+          {
+            "slug": "judge-visible-independent",
+            "title": "Independent checker source and output",
+            "file": "pages/judge-visible-evidence/independent-check.md",
+            "children": []
+          },
+          {
+            "slug": "judge-visible-claim-1",
+            "title": "Claim 1 raw evidence",
+            "file": "pages/judge-visible-evidence/claim-1.md",
+            "children": []
+          },
+          {
+            "slug": "judge-visible-claim-2",
+            "title": "Claim 2 raw evidence",
+            "file": "pages/judge-visible-evidence/claim-2.md",
+            "children": []
+          },
+          {
+            "slug": "judge-visible-claim-3",
+            "title": "Claim 3 raw evidence",
+            "file": "pages/judge-visible-evidence/claim-3.md",
+            "children": []
+          },
+          {
+            "slug": "judge-visible-claim-4",
+            "title": "Claim 4 raw evidence",
+            "file": "pages/judge-visible-evidence/claim-4.md",
+            "children": []
+          },
+          {
+            "slug": "judge-visible-claim-5",
+            "title": "Claim 5 raw evidence",
+            "file": "pages/judge-visible-evidence/claim-5.md",
+            "children": []
+          },
+          {
+            "slug": "judge-visible-claim-6",
+            "title": "Claim 6 raw evidence",
+            "file": "pages/judge-visible-evidence/claim-6.md",
+            "children": []
+          },
+          {
+            "slug": "judge-visible-controls",
+            "title": "Negative controls",
+            "file": "pages/judge-visible-evidence/controls.md",
+            "children": []
+          }
+        ]
       }
     ]
   },
-  "agent_view_tokens": 1611,
+  "agent_view_tokens": 18000,
   "revision": "1784708307490100821"
 }

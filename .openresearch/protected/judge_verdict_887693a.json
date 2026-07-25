@@ -1,0 +1,42 @@
+{
+  "claims": [
+    {
+      "claim": 1,
+      "evidence": "The only shown code/output is 1D (d=1) with n=3000 samples and 4 stepsizes; W1 values are non-monotone (0.0547\u21920.0296\u21920.0235\u21920.0373) and the check merely verifies ratios stay within a 6\u00d7 factor. The rigorous-reproduction section describes d=8 experiments with fitted slopes 0.421\u20130.558 but does not show the actual code or raw output, making those results unverifiable from the logbook.",
+      "verdict": "toy"
+    },
+    {
+      "claim": 2,
+      "evidence": "Same 1D setup as Claim 1 using grad f = x + 3x\u00b3; the scaling check only verifies W1/(\u221a\u03b1 log(1/\u03b1)) ratios are 'bounded' within 6\u00d7, which is a weak proxy for the O(\u03b1^{1/2} log(1/\u03b1)) rate. No d=8 code or output is shown despite the rigorous section claiming slope 0.539.",
+      "verdict": "toy"
+    },
+    {
+      "claim": 3,
+      "evidence": "The shown code tests linear and nonlinear SA at a single stepsize \u03b1=0.02 with arbitrary thresholds (W1<0.1 for linear, W1<1.0 for nonlinear), which does not verify the O(\u03b1^{1/2} log(1/\u03b1)) rate. The rigorous section describes d=8 rate-fitting but provides no executable code or output.",
+      "verdict": "toy"
+    },
+    {
+      "claim": 4,
+      "evidence": "The shown code computes tail gaps at a single deviation level a=1.2 and checks all gaps <0.05, which does not verify the specific \u03b1^{1/4} log^{1/2}(1/\u03b1)/a rate or its improvement with a. The rigorous section mentions 960 rows with Clopper-Pearson intervals but no code or raw output is shown.",
+      "verdict": "toy"
+    },
+    {
+      "claim": 5,
+      "evidence": "The shown code uses a 1D AR(1) noise with 3 stepsizes and only checks that W1 decreases, without verifying the \u221a\u03b1 log(1/\u03b1) rate. The rigorous section describes d=8 Markov experiments with slopes 0.496\u20130.558 but the actual code and output are not shown.",
+      "verdict": "toy"
+    },
+    {
+      "claim": 6,
+      "evidence": "The shown code only checks that Var(X^\u03b1) decreases for f=x\u2074/4, which does not verify the \u03b1^{1/h} rate. The rigorous section itself identifies inconsistencies in the paper's Conjectures 5.1/5.2 (conflicting drift terms, density coefficient discrepancies) and marks the claim BLOCKED, preventing verification or falsification.",
+      "verdict": "inconclusive"
+    }
+  ],
+  "judged_at": "2026-07-24T17:49:55+00:00",
+  "model": "zai-org/GLM-5.2",
+  "overall": "The logbook's only shown executable code is a 1D toy experiment with small samples and weak threshold checks that do not rigorously verify any of the six claims' specific rates. A more detailed d=8 campaign is described in the rigorous-reproduction section with specific numerical slopes and negative controls, but its code and raw output are not shown, making those results unverifiable.",
+  "quality": "low",
+  "score": "5/12",
+  "sha": "887693a544629b31b7c6dc141fa321a9fcdb5948",
+  "space_id": "DineshAI/m4TAzup6Yc",
+  "verdict_dataset_revision": "9116070f3d44b73dd0faf6c8ca3da28563efe07f"
+}

@@ -14,14 +14,14 @@ REPO = Path(__file__).resolve().parents[1]
 RELEASE = REPO / "release"
 OVERLAY = RELEASE / "hf-space-overlay"
 PROTECTED_MANIFEST = (
-    REPO / ".openresearch/protected/judged_space_847472e_manifest.sha256"
+    REPO / ".openresearch/protected/judged_space_887693a_manifest.sha256"
 )
 ALLOWLIST = RELEASE / "hf_upload_allowlist.txt"
 UPLOAD_MANIFEST = RELEASE / "hf_upload_manifest.sha256"
 SUBSET_REPORT = RELEASE / "old_new_subset_check.json"
 SPACE_ID = "DineshAI/m4TAzup6Yc"
-JUDGED_REVISION = "847472e15337044d0adb3e636ebbcf7614f0cd34"
-TEXT_SUFFIXES = {".csv", ".json", ".md", ".sha256"}
+JUDGED_REVISION = "887693a544629b31b7c6dc141fa321a9fcdb5948"
+TEXT_SUFFIXES = {".csv", ".json", ".md", ".py", ".sha256", ".txt"}
 SECRET_PATTERNS = {
     "huggingface_token": re.compile(r"\bhf_[A-Za-z0-9]{20,}\b"),
     "github_classic_token": re.compile(r"\bghp_[A-Za-z0-9]{20,}\b"),
@@ -112,14 +112,21 @@ def candidate_state(judged_dir: Path) -> tuple[dict[str, object], list[str]]:
     if missing_navigation:
         failures.append(f"navigation targets absent: {missing_navigation}")
 
-    unchanged_old = {
-        relative
-        for relative, expected_hash in expected_old.items()
-        if relative != "logbook.json"
-        and (judged_dir / relative).is_file()
-        and sha256(judged_dir / relative) == expected_hash
-        and relative not in overlay_paths
-    }
+    changed_old: list[str] = []
+    unchanged_old: set[str] = set()
+    for relative, expected_hash in expected_old.items():
+        if relative == "logbook.json":
+            continue
+        candidate_path = overlay.get(relative, judged_dir / relative)
+        if candidate_path.is_file() and sha256(candidate_path) == expected_hash:
+            unchanged_old.add(relative)
+        else:
+            changed_old.append(relative)
+    if changed_old:
+        failures.append(f"protected judged paths changed: {changed_old}")
+    upload_paths = sorted(
+        {"logbook.json"} | (overlay_paths - old_paths)
+    )
     report: dict[str, object] = {
         "status": "PASS" if not failures else "FAIL",
         "space_id": SPACE_ID,
@@ -135,10 +142,15 @@ def candidate_state(judged_dir: Path) -> tuple[dict[str, object], list[str]]:
         "missing_old_paths": missing_old,
         "missing_navigation_targets": missing_navigation,
         "old_pages_and_evidence_unchanged": len(unchanged_old) == len(old_paths) - 1,
-        "only_existing_path_replaced": sorted(old_paths & overlay_paths),
+        "only_existing_path_replaced": sorted(
+            relative
+            for relative in old_paths & overlay_paths
+            if relative == "logbook.json"
+            or sha256(overlay[relative]) != expected_old[relative]
+        ),
         "failures": failures,
     }
-    return report, sorted(overlay)
+    return report, upload_paths
 
 
 def generated_allowlist(paths: list[str]) -> str:
