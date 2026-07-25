@@ -1,24 +1,25 @@
-# Publication status — judged 5/12; remediation in progress
+# Publication status — awaiting judge; live score remains 5/12
 
-The approved additive evidence release was published to the existing
+The approved 17-path, text-only remediation was published to the existing
 Hugging Face Space `DineshAI/m4TAzup6Yc` at revision
+`643bd5022b83d9c13488bbb9f4c8ec629cd795f9` on
+2026-07-25T02:29:44Z. The parent guard required the previously judged revision
 `887693a544629b31b7c6dc141fa321a9fcdb5948`.
 
-The remote tree was redownloaded at that exact revision and verified:
+The exact published revision was redownloaded and verified:
 
-- 17/17 judged baseline paths remain present;
-- 16/16 protected non-navigation files are byte-identical;
-- 76/76 approved text paths match the SHA-256 upload manifest;
-- the complete Space tree contains 92 paths.
+- 17/17 approved upload hashes match;
+- 92/92 previously judged paths remain present;
+- 91/91 protected paths other than `logbook.json` remain byte-identical;
+- `logbook.json` is the only existing path replaced;
+- the complete Space tree contains 108 text/evidence paths;
+- the live Trackio agent reader reports the new page with 10 cells;
+- the formal verifier cell exposes the attached 985-line source.
 
-The live judge evaluated that exact revision on 2026-07-24 and assigned
-**5/12**: Claims 1–5 were `toy` and Claim 6 was `inconclusive`. The repeated
-criticism was that the d=8 section described results but showed no executable
-code or raw output.
+The current judge head is still
+`887693a544629b31b7c6dc141fa321a9fcdb5948`, which received **5/12**:
+Claims 1–5 were `toy` and Claim 6 was `inconclusive`. The remediation directly
+addresses the reader failure that hid the d=8 implementation and raw outputs.
 
-The root cause is now reproduced: `trackio logbook read
-DineshAI/m4TAzup6Yc` serializes the plain-Markdown rigorous subtree as
-`No cells`, so the judge received the preserved 1D baseline cell. The current
-unpublished child adds an additive Trackio-cell subtree with the formal d=8
-source, raw rate/tail tables, independent checker source and output, and
-negative controls. No score increase is claimed.
+Status is **awaiting judge**. Publication is not a score change; the live score
+remains **5/12** until a new verdict is produced.
