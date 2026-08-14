@@ -1,5 +1,11 @@
 # Evidence
 
+The output below is the historical 1D toy run. It is not the authoritative
+current verdict. Use the d=8 claim artifacts under
+../../../../.openresearch/artifacts and the claim audit at
+../../../../AUDIT_REPORT.md: Claims 1–5 are VERIFIED_SCOPED and Claim 6 is
+BLOCKED.
+
 
 ---
 <!-- trackio-cell

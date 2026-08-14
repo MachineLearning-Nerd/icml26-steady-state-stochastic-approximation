@@ -29,7 +29,7 @@ tables, independent checker output, and negative controls.
 ## Winning evidence
 
 - Experiment branch:
-  `orx/judge-visible-d-8-code-and-raw-evidence`
+  `research/judge-visible-d8`
 - Candidate Git SHA:
   `ca71757e2505adf2d17c2dac2a12a12381db3cd3`
 - Formal run:

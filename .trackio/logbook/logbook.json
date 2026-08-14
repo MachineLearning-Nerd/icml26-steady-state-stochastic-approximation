@@ -2,13 +2,25 @@
   "schema_version": 1,
   "title": "Repro - Steady-State Behavior of Constant-Stepsize Stochastic Approximation",
   "emoji": "🎯",
-  "space_id": null,
-  "paper": null,
+  "space_id": "DineshAI/m4TAzup6Yc",
+  "paper": {
+    "arxiv": "2602.13960v1",
+    "openreview": "m4TAzup6Yc",
+    "title": "Steady-State Behavior of Constant-Stepsize Stochastic Approximation: Gaussian Approximation and Tail Bounds",
+    "authors": [
+      "Zedong Wang",
+      "Yuyang Wang",
+      "Ijay Narang",
+      "Felix Wang",
+      "Yuzhou Wang",
+      "Siva Theja Maguluri"
+    ]
+  },
   "tags": [
     "icml2026-repro",
     "paper-m4TAzup6Yc"
   ],
-  "updated_at": "2026-07-21T14:34:59+00:00",
+  "updated_at": "2026-08-14T00:00:00+00:00",
   "root": {
     "slug": "index",
     "title": "Repro - Steady-State Behavior of Constant-Stepsize Stochastic Approximation",

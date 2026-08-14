@@ -1,5 +1,10 @@
 # Claims
 
+Current audit status: Claims 1–5 are VERIFIED_SCOPED within the finite d=8
+contracts. Claim 6 is BLOCKED because Proposition 5.1 depends on unresolved
+conjectures and contains source-level formula conflicts. The historical
+6/6 toy result below is retained for lineage only.
+
 
 ---
 <!-- trackio-cell

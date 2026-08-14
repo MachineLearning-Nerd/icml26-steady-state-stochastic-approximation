@@ -192,11 +192,11 @@ returns code 0.
 The tree descends only when a preceding node establishes something needed by
 the next round:
 
-1. [Judged 1D baseline](https://github.com/MachineLearning-Nerd/icml26-repro-m4TAzup6Yc-sgd-steady-state/tree/orx/baseline-judged-1d-toy-reproduction) — freezes the 6/12 toy state.
-2. [Faithful d=8 contracts](https://github.com/MachineLearning-Nerd/icml26-repro-m4TAzup6Yc-sgd-steady-state/tree/orx/faithful-d-8-separable-w1-contracts) — introduces assumption-satisfying models, held-out envelopes, and controls; reveals an i.i.d. sampling floor.
-3. [High-precision W1](https://github.com/MachineLearning-Nerd/icml26-repro-m4TAzup6Yc-sgd-steady-state/tree/orx/high-precision-iid-w1-floor-removal) — raises only the Gaussian ensemble and resolves all six W1 slopes.
-4. [Durable gate](https://github.com/MachineLearning-Nerd/icml26-repro-m4TAzup6Yc-sgd-steady-state/tree/orx/durable-evidence-freeze-and-release-gate) — freezes outputs, adds claim-specific independent recomputation and verifier mutation tests.
-5. [Exact tail intervals](https://github.com/MachineLearning-Nerd/icml26-repro-m4TAzup6Yc-sgd-steady-state/tree/orx/final-additive-publication-candidate) — replaces approximate tail uncertainty with exact Clopper–Pearson evidence.
+1. [Judged 1D baseline](https://github.com/MachineLearning-Nerd/icml26-steady-state-stochastic-approximation/tree/baseline/judged-1d) — freezes the 6/12 toy state.
+2. [Faithful d=8 contracts](https://github.com/MachineLearning-Nerd/icml26-steady-state-stochastic-approximation/tree/research/faithful-d8) — introduces assumption-satisfying models, held-out envelopes, and controls; reveals an i.i.d. sampling floor.
+3. [High-precision W1](https://github.com/MachineLearning-Nerd/icml26-steady-state-stochastic-approximation/tree/research/high-precision-w1) — raises only the Gaussian ensemble and resolves all six W1 slopes.
+4. [Durable gate](https://github.com/MachineLearning-Nerd/icml26-steady-state-stochastic-approximation/tree/release/durable-evidence) — freezes outputs, adds claim-specific independent recomputation and verifier mutation tests.
+5. [Exact tail intervals](https://github.com/MachineLearning-Nerd/icml26-steady-state-stochastic-approximation/tree/release/final-evidence) — replaces approximate tail uncertainty with exact Clopper–Pearson evidence.
 
 The evidence-generating runs through the exact-interval winner took 55m02s of
 local elapsed experiment time. No GPU and no Hugging Face CPU job were used;

@@ -1,8 +1,48 @@
 {
+  "schema_version": 2,
   "paper": "m4TAzup6Yc",
+  "paper_title": "Steady-State Behavior of Constant-Stepsize Stochastic Approximation: Gaussian Approximation and Tail Bounds",
+  "authors": [
+    "Zedong Wang",
+    "Yuyang Wang",
+    "Ijay Narang",
+    "Felix Wang",
+    "Yuzhou Wang",
+    "Siva Theja Maguluri"
+  ],
+  "arxiv": "2602.13960v1",
   "tests_passed": true,
   "publication_gate_passed": true,
-  "claims_verified": 6,
+  "overall_status": "MIXED_RESULTS",
+  "strict_paper_claim_gate": "NOT_READY",
+  "claims_verified": 5,
+  "claims_blocked": 1,
   "claims_total": 6,
-  "arxiv": "2602.13960"
+  "claims": {
+    "C1": "VERIFIED_SCOPED",
+    "C2": "VERIFIED_SCOPED",
+    "C3": "VERIFIED_SCOPED",
+    "C4": "VERIFIED_SCOPED",
+    "C5": "VERIFIED_SCOPED",
+    "C6": "BLOCKED"
+  },
+  "publication_status": "awaiting_judge",
+  "space_id": "DineshAI/m4TAzup6Yc",
+  "published_revision": "643bd5022b83d9c13488bbb9f4c8ec629cd795f9",
+  "previous_judged_revision": "887693a544629b31b7c6dc141fa321a9fcdb5948",
+  "current_live_score": "5/12",
+  "repository": {
+    "owner": "MachineLearning-Nerd",
+    "original_name": "icml26-repro-m4TAzup6Yc-sgd-steady-state",
+    "target_name": "icml26-steady-state-stochastic-approximation",
+    "default_branch": "main"
+  },
+  "branch_policy": {
+    "expected_public_branch_count": 12,
+    "legacy_refs_absent": [
+      "master",
+      "orx/*"
+    ],
+    "cleanup_status": "PENDING"
+  }
 }

@@ -1,6 +1,16 @@
 {
-  "paper_arxiv": "2602.13960",
+  "paper_arxiv": "2602.13960v1",
   "paper_orid": "m4TAzup6Yc",
+  "paper_title": "Steady-State Behavior of Constant-Stepsize Stochastic Approximation: Gaussian Approximation and Tail Bounds",
+  "paper_authors": [
+    "Zedong Wang",
+    "Yuyang Wang",
+    "Ijay Narang",
+    "Felix Wang",
+    "Yuzhou Wang",
+    "Siva Theja Maguluri"
+  ],
+  "repository_status": "MIXED_RESULTS",
   "tags": [
     "icml2026-repro",
     "paper-m4TAzup6Yc"
