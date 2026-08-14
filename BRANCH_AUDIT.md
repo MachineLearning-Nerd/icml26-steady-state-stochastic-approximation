@@ -49,7 +49,6 @@ branches. No co-author or tool-signature lines are added.
 Verified on 2026-08-14 against the GitHub remote:
 
 - `HEAD` points to `main`
-- `main` tip: `df3d8c6750daacb285d92e3bc590f43fe4ebdc94`
 - `git ls-remote --heads origin` returns exactly twelve branches
 - `master` and every `orx/*` ref are absent
 - All reachable commit authors and committers are
